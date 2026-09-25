@@ -2,17 +2,14 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, user-scalable=no"
-    >
 
-    <title>Práctica WebAR</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no">
 
-    <!-- A-Frame -->
+    <title>Prueba marcador WebAR</title>
+
     <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1.6.0/dist/aframe-master.min.js"></script>
 
-    <!-- AR.js para Image Tracking -->
     <script src="https://raw.githack.com/AR-js-org/AR.js/3.4.8/aframe/build/aframe-ar-nft.js"></script>
 
     <style>
@@ -20,80 +17,38 @@
             margin: 0;
             overflow: hidden;
         }
-
-        .arjs-loader {
-            height: 100%;
-            width: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .arjs-loader div {
-            text-align: center;
-            font-size: 1.25em;
-            color: white;
-        }
     </style>
 </head>
 
 <body>
 
-    <!-- Pantalla de carga -->
-    <div class="arjs-loader" id="loader">
-        <div>Cargando Realidad Aumentada... 🐱</div>
-    </div>
-
     <a-scene
         vr-mode-ui="enabled: false;"
-        renderer="logarithmicDepthBuffer: true; precision: medium;"
+        renderer="logarithmicDepthBuffer: true;"
         embedded
-        arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
-    >
+        arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;">
 
-        <!-- FOTO DE TU GATO = IMAGE TARGET -->
+        <!-- MARCADOR: FOTO ORIGINAL DE TU GATO -->
         <a-nft
             type="nft"
             url="WhatsApp%20Image%202026-09-13%20at%203.17.00%20PM%20(2)"
             smooth="true"
             smoothCount="10"
             smoothTolerance="0.01"
-            smoothThreshold="5"
-        >
+            smoothThreshold="5">
 
-            <!-- GATITO 3D -->
-            <a-entity
-                gltf-model="url(Cat%20by%20J-Toastie%20-%208GJbfM8R1A.glb)"
-                scale="5 5 5"
-                position="150 300 -100"
-            >
-            </a-entity>
+            <!-- CUBO DE PRUEBA -->
+            <a-box
+                position="150 150 -50"
+                scale="50 50 50"
+                material="color: red;">
+            </a-box>
 
         </a-nft>
 
-        <!-- Cámara -->
         <a-entity camera></a-entity>
 
     </a-scene>
-
-    <script>
-        const loader = document.getElementById("loader");
-
-        // Ocultar la pantalla cuando AR.js cargue la cámara
-        window.addEventListener("arjs-video-loaded", function () {
-            loader.style.display = "none";
-        });
-
-        // Respaldo por si el navegador no dispara el evento
-        setTimeout(function () {
-            loader.style.display = "none";
-        }, 5000);
-    </script>
 
 </body>
 </html>
