@@ -8,8 +8,10 @@
 
     <title>Prueba modelo 3D</title>
 
+    <!-- A-Frame -->
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
 
+    <!-- AR.js -->
     <script src="https://raw.githack.com/AR-js-org/AR.js/3.4.5/aframe/build/aframe-ar.js"></script>
 
     <style>
@@ -23,10 +25,10 @@
             top: 15px;
             left: 15px;
             z-index: 9999;
-            background: rgba(0,0,0,.8);
+            background: rgba(0, 0, 0, 0.8);
             color: white;
             padding: 12px;
-            font-family: Arial;
+            font-family: Arial, sans-serif;
             font-size: 18px;
         }
     </style>
@@ -34,13 +36,14 @@
 
 <body>
 
-<div id="estado">🐱 Probando modelo 3D...</div>
+<div id="estado">🐱 Cargando modelo 3D...</div>
 
 <a-scene
     embedded
     vr-mode-ui="enabled: false"
     arjs="sourceType: webcam; debugUIEnabled: false;">
 
+    <!-- MODELO 3D -->
     <a-assets>
         <a-asset-item
             id="gatito3d"
@@ -48,26 +51,29 @@
         </a-asset-item>
     </a-assets>
 
+    <!-- GATITO -->
     <a-entity
+        id="gatito"
         gltf-model="#gatito3d"
-        position="0 0 -3"
+        position="0 -0.5 -3"
         rotation="0 0 0"
-        scale="1 1 1">
+        scale="0.15 0.15 0.15">
     </a-entity>
 
+    <!-- CÁMARA -->
     <a-entity camera></a-entity>
 
 </a-scene>
 
 <script>
-    const modelo = document.querySelector('[gltf-model]');
-    const estado = document.querySelector('#estado');
+    const modelo = document.querySelector("#gatito");
+    const estado = document.querySelector("#estado");
 
-    modelo.addEventListener('model-loaded', function () {
+    modelo.addEventListener("model-loaded", function () {
         estado.innerHTML = "✅ MODELO 3D CARGADO";
     });
 
-    modelo.addEventListener('model-error', function (e) {
+    modelo.addEventListener("model-error", function (e) {
         estado.innerHTML = "❌ ERROR AL CARGAR EL MODELO";
         console.error(e);
     });
