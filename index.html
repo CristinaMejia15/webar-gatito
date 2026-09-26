@@ -6,7 +6,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, user-scalable=no">
 
-    <title>Prueba marcador WebAR</title>
+    <title>Prueba NFT Gatito</title>
 
     <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1.6.0/dist/aframe-master.min.js"></script>
 
@@ -17,38 +17,64 @@
             margin: 0;
             overflow: hidden;
         }
+
+        #estado {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 99999;
+            background: black;
+            color: white;
+            padding: 10px;
+            font-family: Arial;
+            font-size: 16px;
+        }
     </style>
 </head>
 
 <body>
 
-    <a-scene
-        vr-mode-ui="enabled: false;"
-        renderer="logarithmicDepthBuffer: true;"
-        embedded
-        arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;">
+<div id="estado">Esperando marcador...</div>
 
-        <!-- MARCADOR: FOTO ORIGINAL DE TU GATO -->
-        <a-nft
-            type="nft"
-            url="gatito"
-            smooth="true"
-            smoothCount="10"
-            smoothTolerance="0.01"
-            smoothThreshold="5">
+<a-scene
+    vr-mode-ui="enabled: false;"
+    renderer="logarithmicDepthBuffer: true; precision: medium;"
+    embedded
+    arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: true;">
 
-            <!-- CUBO DE PRUEBA -->
-            <a-box
-                position="150 150 -50"
-                scale="50 50 50"
-                material="color: red;">
-            </a-box>
+    <a-nft
+        id="marcador"
+        type="nft"
+        url="./gatito"
+        smooth="true"
+        smoothCount="10"
+        smoothTolerance="0.01"
+        smoothThreshold="5">
 
-        </a-nft>
+        <a-box
+            position="150 150 -50"
+            scale="50 50 50"
+            material="color: red;">
+        </a-box>
 
-        <a-entity camera></a-entity>
+    </a-nft>
 
-    </a-scene>
+    <a-entity camera></a-entity>
+
+</a-scene>
+
+<script>
+    const marcador = document.querySelector("#marcador");
+    const estado = document.querySelector("#estado");
+
+    marcador.addEventListener("markerFound", () => {
+        estado.innerHTML = "✅ MARCADOR DETECTADO";
+    });
+
+    marcador.addEventListener("markerLost", () => {
+        estado.innerHTML = "❌ Marcador perdido";
+    });
+</script>
 
 </body>
 </html>
